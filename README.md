@@ -1,1 +1,1 @@
-# AI-ML-Projecct-2024-303221
+# AI-ML-Project-2024-303221
