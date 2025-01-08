@@ -82,11 +82,11 @@ In a regression problem, the target variable (**`Cargo_Capacity_kg`**) is essent
 
 #### Dropping rows where the dependent value is missing
 
-Cargo_Capacity_kg missing values in the original dataset: 100233
+**`Cargo_Capacity_kg missing values in the original dataset: 100233`**
 
-Cargo_Capacity_kg missing values after dropping the rows: 0
+**`Cargo_Capacity_kg missing values after dropping the rows: 0`**
 
-We removed the 100233 rows and now there are 899767
+**`We removed the 100233 rows and now there are 899767`**
 
 
 
