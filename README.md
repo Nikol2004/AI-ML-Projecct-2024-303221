@@ -2,6 +2,8 @@
 
 # Project 4 - AEROPOLIS
 
+#### Group ID: 15
+
 ### Group Members:
 
 * Nikol Tushaj (303221)
@@ -27,22 +29,37 @@ The main python libraries we used for the project are:
 
 ## The Steps taken: 
 
-[EDA](EDA)
+* EDA
+* Cleaning the Dataset
+* Feature Selection
+* Splitting into trainig and test data
+* Model Building
+* Feature Importance
 
 
 ## 1. EDA
 
-### 1.1 Data Overview
+### Data Overview
 
-### 1.2 Checking for Duplicates
+* The dataset contains 1,000,000 rows and 20 columns.
+* The target **`Cargo_Capacity_kg`**, a numerical value predicting the drone's cargo capacity.
+* Features include environmental factors (e.g., **`Air_Temperature_Celsius`**, **`Weather_Status`**), and categorical data (e.g., **` Package_Type`**, **`Market_Region`**).
 
-### 1.3 Checking Data Integrity
+### Data Integrity
 
-#### 1.3.1 Missing Values per row
+* The dataset has 10% missing values across all columns.
+* Key metrics were calculated using **`.info()`**, **`.nunique()`**, and **`.duplicated()`**, confirming no duplicates but highlighting missing data for further handling.
 
-### 1.4 Descriptive Statistics using the original data
 
-#### 1.4.1 Categorical Values
+### Descriptive Statistics
+
+#### Categorical Values
+
+#### Numerical Values
+
+### Handling missing values of the dependent variable
+
+#### Dropping rows where the dependent value is missing
 
 
 
