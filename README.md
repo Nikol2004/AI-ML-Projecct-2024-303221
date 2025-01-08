@@ -53,7 +53,7 @@ The main python libraries we used for the project are:
 
 ### Descriptive Statistics
 
-#### Categorical Values
+### - Categorical Values
 
 * Balanced distributions for categories such as **`Weather_Status`**, **`Market_Region`**, and **`Package_Tpye`**.
 
@@ -62,7 +62,7 @@ The main python libraries we used for the project are:
 <img width="658" alt="1  Categorical Values Distribution" src="https://github.com/user-attachments/assets/dc93d0fe-54f1-408d-b27b-fb49ac91d748"/>
 
 
-#### Numerical Values
+### - Numerical Values
 
 * **`Cargo_Capacity_kg`** has a mean of 4.65 kg with a standard deviation of 1.69 kg, indicating moderate variability.
 * Some negative values identified as anomalies.
@@ -173,13 +173,16 @@ These models were trained and evaluated. Key evaluation metrics included:
 <img width="657" alt="13  Random Forest curve and error plot" src="https://github.com/user-attachments/assets/7e62763c-5c5f-441d-a032-e305a29439cd" />
 <img width="660" alt="12  Linear Regression curve and error plot" src="https://github.com/user-attachments/assets/4e289bdb-8354-47b8-b590-8ab1cc61b379" />
 
-1. Learning Curves:
+
+
+
+1. **Learning Curves:**
 
 * A steep training curve suggests overfitting if it is much better than validation.
 * Gradient Boosting and Linear Regression show relatively balanced training/validation curves, indicating good generalization.
 * KNN shows high overfitting, with a significant gap between training and validation R^2.
 
-2. Prediction Error Plots:
+2. **Prediction Error Plots:**
 
 * Models with points close to the diagonal red line perform better.
 * Points scattered far from the line suggests worse predictions.
@@ -198,6 +201,217 @@ From the results of the metrics we concluded that:
 ### Visualizing the linear relationship of the values with the target value
 
 <img width="657" alt="17  Linear Relations" src="https://github.com/user-attachments/assets/7c4018b5-e848-4296-b45f-09c3726cacd5" />
+
+The scatterplots show that most features lack a strong linear relationship with the target variable, as the points are scattered uniformly. Specifically:
+
+1. *Air Temperature*, *Flight Hours*, *Cleaning Liquid Usage*, *Autopilot Quality*, and *Route Optimization*: The data points are distributed without any discernible pattern, suggesting no clear linear correlation with the target.
+
+2. *Wind Speed (kmph)*: This feature shows a visible pattern where the target value increases with wind speed, indicating a potential linear or non-linear correlation.
+
+This confirms that Linear Regression is not suitable for accurately predicting the target variable in this dataset and will be used only as a baseline model.
+
+### Choosing the best models
+
+**Gradient Boosting**
+
+*Why was it chosen?*
+
+Gradient Boosting is a powerful ensemble learning technique that build models sequentially, minimizing errors at each step. It was chosen because:
+
+* It captures complex, non-linear relationships in the data.
+
+* The model has shown robust performance with low MSE and high R^3 scores during cross-validation.
+
+* It is less prone to overfitting than Random Forest in some scenarios due to its iterative training process.
+
+**Support Vector Regressor (SVR)**
+
+*Why was it chosen?*
+
+SVR uses kernel function to model non-linear relationships effectively. It was chosen because:
+
+* It is capable of finding a balance between bias and variance by defining margins for the predictions.
+
+* The model performed well in terms of accuracy ad R^2 scores, proving its suitability for this dataset.
+
+* It can handle outliers better than simpler regression techniques.
+
+**Linear Regression (as a baseline)**
+
+*Why was it chosen?*
+
+Linear Regression was included as a baseline model for comparison purposes. It was chosen because:
+
+* It is straightforward, interpretable, and computationally efficient.
+
+* Despite its simplicity, it provides a benchmark to evaluate the performance of more complex models.
+
+* The scatterplots demonstrated that most features lack linear relationships with the target, confirming its limited utility but making it ideal for baseline evaluation.
+
+##### Why not the others?
+
+* *Random Forest*: While Random Forest is a strong model, it requires more computational resources and showed slightly inferior performance compared to Gradient Boosting and SVR.
+
+* *K-Nearest Neighbors(KNN)*: KNN performed poorly with the highest MSE and lowest R^2, indicating its inability to capture the complexities of the dataset. Additionally, its performace degrades with high-dimensional data.
+
+
+
+### Hyperparameter Tuning for Gradient Boosting Rergession
+
+**1. Hyperparameter Grid Definition**
+The hyperparameter grid was defined to optimize the performance of the Gradient Boosting Regressor. The parameters included:
+
+* **`n_estimators`**: This represents the number of boosting stages (or trees). A higher number allows the model to learn more complex patterns but can lead to overfitting if too large.
+
+* **`learning_rate`**: Conrols the contribution of each tree to the final prediction. Smaller values reduce overfitting and require more estimators for good performance.
+
+* **`max_depth`**: Limits the maximum depth of individual trees, controlling how complex each tree can be. Shallower trees help prevent overfitting.
+
+* **`min_samples_split`**: The minimum umber of samples required to split an internal node. Larger values result in less complex trees.
+
+* **`min_samples_leaf`**: The minimum number of samples required to be at a leaf node. Higher values make the trees more robust by reducing overfitting.
+
+**2. Initializing RandomizedSearchCV**
+
+The hyperparameter tuning was concluded using **`RandomizedSearchCV`** with the following: 
+
+* **`estimator`**: Specifies the model, in this case, GradientBoostingRegressor.
+
+* **`param_distributions`**: The hyperparameter grid defined earlier (param_grid) that included values to sample during the search.
+
+* **`n_iter`**: The number of random combinations of hyperparameters to try (100 iterations here).
+
+* **`scoring='r2'`**: The performance metric used is the R^2 score.
+
+* **`cv=5`**: Performs 5-fold cross-validation for each parameter combination.
+
+* **`random_state=42`**: Ensures reproducibility of the results.
+
+* **`n_jobs=-1`**: Utilizes all available CPUs for computation.
+
+* **`verbose=1`**: Controls the amount of output during the execution.
+
+**3. Model Training and Selection**
+
+The best hyperparameters were identified by fitting the model to the training data. These parameters are:
+	
+* **`n_estimators`**: 200
+ 	
+* **`min_samples_split`**: 15
+
+* **`min_samples_leaf`**: 6
+
+* **`max_dept`**: 3
+
+* **`learning_rate`**: 0.05
+
+**4. Evaluation on Test Data**
+
+The tuned Gradient Boosting model was evaluated on the test set with the following metrics:
+
+* **`MSE`**: 0.0882
+* **`MAE`**: 0.2381
+* **`R^2 Score`**: 0.9111
+
+The model's test set results validate its effectiveness and confirm that the chosen hyperparameters generalize well.
+
+
+### Hyperparameter Tuning for SVR
+
+**1. Parameter Grid Definition**
+
+The **`param_grid_svr`** dictionary defines the hyperparameter space for tuning the SVR.
+
+*The parameters chosen*
+
+* **`C`**: Regularization parameter. A smaller value of C allows for a larger margin, but may increase bias, while a larger value of C reduces margin for a better fit but may risk overfitting. Values like 0.1, 1, 10, 100 are tested.
+
+* **`epsilon`**: Defines the margin of tolerance where no penalty is given in the training loss function. Smaller values are more sensitive to deviations from actual values. Values like 0.001, 0.01, 0.1, 1 are tested.
+
+* **`kernel`**: Specifies the kernel type to be used in the algorithm
+    * *linear*: A linear kernel assumes linear relationships in the data
+    * *rbf*: Radial Basis Function kernel is flexible and works well with non-linear data.
+    * *poly*: Polynomial kernel can capture complex relationships.
+
+**2. Hyperparameter Tuning Process**
+
+This initializes a hyperparameter seach over the SVR model:
+
+* **`estimator=SVR()`**: Defines the base model (SVR) to tune.
+
+* **`param_distributions=param_grid_svr`**: Uses the grid of parameters defined earlier.
+
+* **`n_iter=20`**: The search will test 20 random combinations of the parameter grid.
+
+* **`scoring='r2'`**: The performance metric used is the R^2 score.
+
+* **`cv=5`**: Performs 5-fold cross-validation for each parameter combination.
+
+* **`random_state=42`**: Ensures reproducibility of the results.
+
+* **`n_jobs=-1`**: Utilizes all available CPUs for computation.
+
+* **`verbose=2`**: Provides detailed output during the search.
+
+**3. Model fitting and results**
+
+The model underwent 20 iterations with 5-fold cross-validation for each hyperparameter combination. The best parameters indicate: 
+
+* **`Kernel`**: 'linear' was optimal, meaning the relationship between predictors and the target is sufficiently linear.
+
+* **`C:`** 1, which provides a balance between margin size and fitting accuracy.
+
+* **`Epsilon`**: 0.01, a small margin of tolerance, indicating the model is sensitive to deviations in predictions.
+
+The cross-validation R^2 score of 0.913 shows the model generalizes well on unseen data, with high accuracy.
+
+**4. Evaluation on Test Set**
+
+The best SVR model was evaluated on the test set:
+
+
+* MSE: **`0.0869`** indicates low average squared error.
+
+* MAE: **`0.2355`** suggests predictions are off by about 0.2355 units on average.
+
+* R^2: **`0.9124`** confirms the model explains 91.24% of the variance in the target variable.
+
+### Evaluation for Linear Regression 
+
+Linear Regression is a baseline model without hyperparameter tuning making it straightforward and computationally efficient to evaluate.
+
+* The Linear Regression model achieved comparable performance to the other models, with an MSE **`0.0870`**, MAE of **`0.2357`**, and an R^2 of **`0.9123`**. 
+
+* This suggests that even without advanced techniques, linear regression is a strong baseline for this dataset.
+
+### Comparison of Models
+
+<img width="655" alt="18  Model Performance Comparison" src="https://github.com/user-attachments/assets/e5851e89-0300-4df6-8242-9fefca8e401d" />
+
+* SVR has the lowest MSE and MAE, confirming it makes the smallest prediction errors among the three models. It also has the highest R^2, indicating it explains the variance in the target variable better than the others.
+
+* Linear Regression performs almost as well as SVR, with comparable R^2 and slightly higher error metrics. 
+
+* Gradient Boosting, while effective, shows slightly higher MSE and MAE, suggesting it may not generalize as well as the other models for this dataset.
+
+### Residual Plots 
+
+Residual plots help evaluate how well a model's predictions align with the actual data. They plot the residuals (differences between predicted and actual values) against the predicted values. Residuals should ideally have no discernible pattern and be centered around zero.
+
+This indicates that the model captures the data effectively and that errors are randomly distributed. Using residual plots is essential to check for non-linearity, and any systematic bias in the predictions.
+
+<img width="658" alt="21  Residual Plot for Linear Regression" src="https://github.com/user-attachments/assets/ab3e4071-7a2a-4a5a-ace8-a1afd037a583" />
+<img width="656" alt="20  Residual Plot for SVR" src="https://github.com/user-attachments/assets/725a6d4a-f010-4019-8167-6ae8cbeec16d" />
+<img width="659" alt="19  Residual Plot for Gradient Boosting" src="https://github.com/user-attachments/assets/ca5f9a0e-b2db-48b4-99c9-e0e4c6c8ab3e" />
+
+1. *Gradient Boosting*: The residuals are distributed relatively evenly around zero, with no visible pattern. This indicates that the model captures the data structure well, though some variance in prediction errors is noticeable.
+
+2. *SVR*: The SVR residual plot also shows residuals scattered evenly around zero with minimal structure or pattern, suggesting that the model predictions align well with the actual data. The dispersion of residuals is slightly more concentrated compared to Gradient Boosting, indicating consistent prediction behavior.
+
+3. *Linear Regression*: The residuals for linear regression are evenly distributed around zero, similar to the other two models. However, since linear regression assumes a linear relationship, any slight deviations might indicate that this assumption may not fully capture the complexity of the data.
+
+Overall, all three models show acceptable residual distributions, but Gradient Boosting and SVR may handle complex data patterns slightly better than Linear Regression due to heir more advanceed architectures.
+
 
 
 ## 6. Feature Importance
