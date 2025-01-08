@@ -74,7 +74,23 @@ The main python libraries we used for the project are:
 
 ### Handling missing values of the dependent variable
 
+In a regression problem, the target variable (**`Cargo_Capacity_kg`**) is essential for training and evaluation. Rows with missing target values are removed because:
+
+1. <b>Model Training</b>: The model cannot learn without target values, as it needs them to calculate errors and adjust weights.
+2. <b>Evaluation</b>: Missing target values make it impossible to compare predictions and measure model performance.
+3. <b>Data Integrity</b>: Retaining these rows adds noise and unnecessary complexity without contributing to the model.
+
 #### Dropping rows where the dependent value is missing
+
+Cargo_Capacity_kg missing values in the original dataset: 100233
+
+Cargo_Capacity_kg missing values after dropping the rows: 0
+
+We removed the 100233 rows and now there are 899767
+
+
+
+
 
 
 
