@@ -55,7 +55,22 @@ The main python libraries we used for the project are:
 
 #### Categorical Values
 
+* Balanced distributions for categories such as **`Weather_Status`**, **`Market_Region`**, and **`Package_Tpye`**.
+
+* Represented visually through pie charts for clear interpretation.
+
+<img width="658" alt="1  Categorical Values Distribution" src="https://github.com/user-attachments/assets/dc93d0fe-54f1-408d-b27b-fb49ac91d748"/>
+
+
 #### Numerical Values
+
+* **`Cargo_Capacity_kg`** has a mean of 4.65 kg with a standard deviation of 1.69 kg, indicating moderate variability.
+* Some negative values identified as anomalies.
+
+* Histogram plots reveal bell-shaped distributions for some variables, while others, like **`Cleaning_Liquid_Usage_liters`**, show skewness.
+
+<img width="656" alt="2  Numerical Values Distribution" src="https://github.com/user-attachments/assets/acd12211-ba8c-48ed-bb42-92a1b2b7e0aa"/>
+
 
 ### Handling missing values of the dependent variable
 
