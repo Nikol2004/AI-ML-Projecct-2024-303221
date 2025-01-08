@@ -32,7 +32,7 @@ The main python libraries we used for the project are:
 * EDA
 * Cleaning the Dataset
 * Feature Selection
-* Splitting into trainig and test data
+* Splitting into training and test data
 * Model Building
 * Feature Importance
 
@@ -117,7 +117,90 @@ In a regression problem, the target variable (**`Cargo_Capacity_kg`**) is essent
 * After processing, all columns were converted to numeric types, including previously categorical columns.
 
 
+## 3. Feature Selection
 
+## 4. Splitting into training and test data
+
+## 5. Model Building
+
+### A Regression Problem
+
+This task was approached as a regression problem because the target variable, **Cargo_Capacity_kg**, is a continuous numerical value.
+
+Regression models are specifically designed to predict continuous outcomes by learning the relationships between the input features and the target variable. Unlike classification, which deals with discrete categories, regression enables the prediction of a wide range of possible values, making it suitable for estimating quantities such as weight, price, or, in this case, the cargo caapacity of autonomous delivery drones. 
+
+This choice aligns with the dataset structure and the objective of providing accurate numerical predictions, essential for operational and logistical planning in drone delivery systems.
+
+### Models to compare
+
+1. **`Linear Regression`**
+
+* A basic regression model that assumes a linear relationship between the input features and the target variable. It fits a straight line to minimize the residual sum of squares between observed and predicted values.
+
+2. **`Random Forest Regressor`**
+
+* An ensemble learning method that build multiple decision trees and average their predictions to improve accuracy and reduce overfitting. It is robust to outliers and captures complex relationships.
+
+3. **`Gradient Boosting Regressor`**
+
+* An iterative ensemble technique that builds trees sequentially, with each tree correcting errors of the previous ones. It focueses on minimizing the loss function, making it effective for complex datasets.
+
+4. **`K-Nearest Neighbors Regressor`**
+
+* A non-parametric model that predicts the target value of a data point by averaging the values of its k nearest neighbors in the feature space. 
+
+5. **`Support Vector Regressor`**
+
+* A regression model that uses the concept of support vectors and hyperplanes. It tries to fit the data within a margin of tolerance (epsilon) while minimizing errors outside this margin. It is effective for datasets with a high dimensional feature space.
+
+### Testing the models
+
+These models were trained and evaluated. Key evaluation metrics included:
+
+**`MSE (Mean Squared Error)`**: Measures the average squared differences between actual and predicted values.
+
+**`MAE (Mean Absolute Error)`**: Measures the average absolute differences.
+
+**`R^2 (Coefficient of Determination)`**: Indicates the proportion of the variance explained by the model.
+
+**`Runtime`**: Captures the time each mocel takes for training and predictions.
+
+
+
+<img width="657" alt="16  SVR curve and error plot" src="https://github.com/user-attachments/assets/d464fc49-b82a-416f-ac58-e8b485de1c98" />
+<img width="661" alt="15  K-Nearest Neighbors curve and error plot" src="https://github.com/user-attachments/assets/e844096b-c493-46e2-b494-6e392d68b336" />
+<img width="660" alt="14  Gradient Boosting curve and error plot" src="https://github.com/user-attachments/assets/f14c8f80-7477-4679-bdf6-e341451cc62b" />
+<img width="657" alt="13  Random Forest curve and error plot" src="https://github.com/user-attachments/assets/7e62763c-5c5f-441d-a032-e305a29439cd" />
+<img width="660" alt="12  Linear Regression curve and error plot" src="https://github.com/user-attachments/assets/4e289bdb-8354-47b8-b590-8ab1cc61b379" />
+
+1. Learning Curves:
+
+* A steep training curve suggests overfitting if it is much better than validation.
+* Gradient Boosting and Linear Regression show relatively balanced training/validation curves, indicating good generalization.
+* KNN shows high overfitting, with a significant gap between training and validation R^2.
+
+2. Prediction Error Plots:
+
+* Models with points close to the diagonal red line perform better.
+* Points scattered far from the line suggests worse predictions.
+
+From the results of the metrics we concluded that: 
+* **`Linear Regression`** performs best in terms of R^2 (0.9123) and runtime (0.046) seconds, making it efficient and effective.
+
+* **`Gradient Boosting`** has slightly lower R^2 but is robust for capturing nonlinear relationships.
+
+* **`SVR`** performs comparably but takes londer to run.
+
+* **`Random Forest`** performs moderately but has higher computational costs.
+
+* **`KNN`** shows the worst performance due to overfitting, with significantly lower R^2.
+
+### Visualizing the linear relationship of the values with the target value
+
+<img width="657" alt="17  Linear Relations" src="https://github.com/user-attachments/assets/7c4018b5-e848-4296-b45f-09c3726cacd5" />
+
+
+## 6. Feature Importance
 
 
 
