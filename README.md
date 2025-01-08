@@ -89,6 +89,45 @@ In a regression problem, the target variable (**`Cargo_Capacity_kg`**) is essent
 **`We removed the 100233 rows and now there are 899767`**
 
 
+## 2. Cleaning the dataset
+
+### Encoding Categorical Values
+
+* The dataset contained several categorical columns such as **`Weather_Status`**, **`Package_Type`**, and **`Vertical_Landing`**.
+
+* These columns were mapped to numerical values to facilitate model training.
+	For example:
+	* **`Weather_Status`**: {'Cloudy': 0, 'Sunny': 1, 'Rainy': 2}
+	* **`Package_Type`**: {'Maize': 0, 'Cotton': 1, 'Barley': 2}
+
+ * **`NaN`** values were preserved during encoding for later imputation.
+ * This transformation ensured that categorical variables were effectively handled, maintaining the dataset's integrity for modeling.
+
+### Mapping and Validation
+
+* Custom mappings were applied to each categorical column, and the changes were validated by displaying unique values before and after the mapping process.
+* Example:
+	* Before Mapping: ['Cloudy', 'Sunny', 'Rainy', nan]
+   	* After Mapping: [0.0, 1.0, 2.0, nan]
+ 
+* This validation process confirmed the accuracy and consistency of the transformations.
+
+### Dataset Overview after encoding
+
+* After processing, all columns were converted to numeric types, including previously categorical columns.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
