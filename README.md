@@ -4,31 +4,57 @@
 
 ### Group Members:
 
-* Nikol Tushaj - Group "Captain" (303221)
+* Nikol Tushaj (303221)
 * Rajla Çulli (297601)
 * Giulio Carbone (290721)
 
 ## INTRODUCTION
 
-In the futuristic city of Aeropolis, autonomous delivery drones are essential to ensure fast and efficient delivery of goods across the sprawling metropolis. Each drone's performance is evaluated based on how much cargo it can deliver per flight. 
+In the futuristic city of Aeropolis, autonomous delivery drones are essential to ensure fast and efficient delivery of goods across the sprawling metropolis. Each drone's performance is evaluated based on how much cargo it can deliver per flight. However, many factors influence its performance, from weather conditions to the type of terrain it navigates. To optimize drone performance, data scientists are tasjed with predicting the cargo capacity per flight based on various environmental and operational factors.
 
-However, many factors influence its performance, from weather conditions to the type of terrain it navigates. 
-
-To optimize drone performance, data scientists are tasked with predicting the cargo capacity per flight based on various environmental and operational factors.
-
-## LIBRARIES
+### LIBRARIES
 The main python libraries we used for the project are:
 
-* pandas: to manipulate the dataset;
-* matplotlib.pyplot: to plot graphs;
-* numpy: to perform mathematical operations;
-* seaborn: to plot graphs;
-* time: to track execution time;
-* math: to perform mathematical operations;
-* warnings: to get rid of unnecessary warnings;
-* sklearn: to build the models and evaluate their performance;
+* **`pandas`**: to manipulate the dataset;
+* **`matplotlib.pyplot`**: to plot graphs;
+* **`numpy`**: to perform mathematical operations;
+* **`seaborn`**: to plot graphs;
+* **`time`**: to track execution time;
+* **`math`**: to perform mathematical operations;
+* **`warnings`**: to get rid of unnecessary warnings;
+* **`sklearn`**: to build the models and evaluate their performance;
 
-Our project is divided into 7 steps, which we will explain below:
+
+## The Steps taken: 
+
+[EDA](EDA)
+
+
+## 1. EDA
+
+### 1.1 Data Overview
+
+### 1.2 Checking for Duplicates
+
+### 1.3 Checking Data Integrity
+
+#### 1.3.1 Missing Values per row
+
+### 1.4 Descriptive Statistics using the original data
+
+#### 1.4.1 Categorical Values
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### 1) Understanding the dataset
 - 1.1)Overview of the dataset: with *'aeropolis_df.head()'* we extract the first few rows of the dataset, which helps us to better understand the structure of the data, the columns, and to have a glance at the values;
