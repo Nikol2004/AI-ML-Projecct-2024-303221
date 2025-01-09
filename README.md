@@ -1,6 +1,11 @@
-# AI and ML Project 2024-2025
+# Optimizing drone logistics in Aeropolis 🚀🏙️🤖
 
-# Project 4 - AEROPOLIS
+----
+
+### AI and ML Project 2024-2025 
+
+### Project 4
+
 
 #### Group ID: 15
 
@@ -10,11 +15,12 @@
 * Rajla Çulli (297601)
 * Giulio Carbone (290721)
 
-## INTRODUCTION
+
+## ⚡︎ INTRODUCTION 
 
 In the futuristic city of Aeropolis, autonomous delivery drones are essential to ensure fast and efficient delivery of goods across the sprawling metropolis. Each drone's performance is evaluated based on how much cargo it can deliver per flight. However, many factors influence its performance, from weather conditions to the type of terrain it navigates. To optimize drone performance, data scientists are tasjed with predicting the cargo capacity per flight based on various environmental and operational factors.
 
-### LIBRARIES
+### ⚡︎ LIBRARIES
 The main python libraries we used for the project are:
 
 * **`pandas`**: to manipulate the dataset;
@@ -36,10 +42,7 @@ The main python libraries we used for the project are:
 * Model Building
 * Feature Importance
 
-
-
-
-
+-----
 
 ## 1. EDA
 
@@ -90,9 +93,7 @@ In a regression problem, the target variable (**`Cargo_Capacity_kg`**) is essent
 **`We removed the 100233 rows and now there are 899767`**
 
 
-
-
-
+-----
 
 
 ## 2. Cleaning the dataset
@@ -217,9 +218,7 @@ In the more filtered dataset, the shape indicates a very large number of rows (2
 — vetem kte shto posht dyshit
 
 
-
-
-
+-------
 
 
 ## 3. Feature Selection
@@ -259,9 +258,7 @@ We decided to use KNN imputation because it effectively estimates missing values
 * This approach minimizes the risk of bias and ensures the data is ready for further preprocessing or modeling.
 
 
-
-
-
+------
 
 
 
@@ -294,7 +291,7 @@ Visualizing the distribution of features in the trianing and test sets using Ker
 * However, features like **`Vertical_Landing`** and **`Terrain_type`** show distinct peaks, reflecting categorical distributions, while others like **`Air_Temperature_Celsius`** are continuous and symmetric.
 
 
-
+-----
 
 
 ## 5. Model Building
@@ -634,7 +631,7 @@ As a result, hyperparameter tuning has little impact, as the models can already 
 
 
 
-
+-----
 
 
 
@@ -688,12 +685,12 @@ This highlights the difference in the underlying mechanics of the two models: Gr
 
 
 
+------
 
 
 
 
-
-<h2 align="center">Conclusion</h2>
+<h2 align="center">⚡︎Conclusion⚡︎</h2>
 
 In this project, we successfully developed machine learning models to predict the cargo capacity of autonomous delivery drones operating in Aeropolis, a futuristic urban environment. Through a combination of Gradient Boosting, Linear Regression and other algorithms, we analyzed the key factors affecting drone performance and optimized the models for accurate cargo predictions.
 
