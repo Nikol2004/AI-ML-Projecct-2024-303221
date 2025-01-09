@@ -303,7 +303,7 @@ Visualizing the distribution of features in the trianing and test sets using Ker
 
 This task was approached as a regression problem because the target variable, **Cargo_Capacity_kg**, is a continuous numerical value.
 
-Regression models are specifically designed to predict continuous outcomes by learning the relationships between the input features and the target variable. Unlike classification, which deals with discrete categories, regression enables the prediction of a wide range of possible values, making it suitable for estimating quantities such as weight, price, or, in this case, the cargo caapacity of autonomous delivery drones. 
+Regression models are specifically designed to predict continuous outcomes by learning the relationships between the input features and the target variable. Unlike classification, which deals with discrete categories, regression enables the prediction of a wide range of possible values, making it suitable for estimating quantities such as weight, price, or, in this case, the cargo capacity of autonomous delivery drones. 
 
 This choice aligns with the dataset structure and the objective of providing accurate numerical predictions, essential for operational and logistical planning in drone delivery systems.
 
@@ -319,7 +319,7 @@ This choice aligns with the dataset structure and the objective of providing acc
 
 3. **`Gradient Boosting Regressor`**
 
-* An iterative ensemble technique that builds trees sequentially, with each tree correcting errors of the previous ones. It focueses on minimizing the loss function, making it effective for complex datasets.
+* An iterative ensemble technique that builds trees sequentially, with each tree correcting errors of the previous ones. It focuses on minimizing the loss function, making it effective for complex datasets.
 
 4. **`K-Nearest Neighbors Regressor`**
 
