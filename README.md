@@ -121,6 +121,100 @@ In a regression problem, the target variable (**`Cargo_Capacity_kg`**) is essent
 ### Dataset Overview after encoding
 
 * After processing, all columns were converted to numeric types, including previously categorical columns.
+* ### Finding the correlation between the independent values and the target value
+
+We compute the pairwise correlation between all the columns using **`.corr()`** and then visualize it in a heatmap using **`seaborn.heatmap`**.
+
+<img width="659" alt="3  Correlatio Matrix of Variables" src="https://github.com/user-attachments/assets/29768730-6217-4055-8c03-b0a7e82ea456" />
+
+* The heatmap shows correlations between all variables. For example, **`Wind_Speed_kmph`** has a strong positive correlation (**`0.76`**) with the target **`Cargo_Capacity_kg`**. 
+
+* On the other hand, features like **`Vertical_Max_Speed`** and **`Market_Region`** show near-zero or negative correlations.
+
+* Additionally, the lack of strong correlations among most features suggests low multicollinearity, which is advantageous for regression models, as it helps to avoid redundancy and ensures better feature contributions to predictions.
+
+### Dropping rows with missing values in important features
+
+**Purpose**
+
+To ensure data integrity, rows containing missing values for critical features are dropped. This step minimizes the risk of biases caused by incomplete data during model training.
+
+### Dropping Irrelevant or Negatively Correlated Columns
+
+This step eliminates columns that do not contribute significantly to predicting **`Cargo_Capacity_kg`**. By focusing on highly relevant features, we simplify the dataset, improve computational efficiency, enhance model interpretability. 
+
+### Removing Skewness
+
+From the descriptive statistics before, we saw that one of the numerical values had potential of being skewed, therefore we have to remove it.
+
+<img width="657" alt="4  Distribution of Cleaning_Liquid_Usage_liters" src="https://github.com/user-attachments/assets/b828b857-c4ab-4dbb-bd6b-357304523d2f" />
+
+* The original distribution of **`Cleaning_Liquid_Usage_liters`** is right-skewed, indicating that most values are clustered near zero. After the log transformation, the distribution becomes more symmetric, which can improve model performance by ensuring that the feature follows a normal distribution.
+
+We transform that column by using the **`np.log1p`**, which applies a logarithmic transformation (**`log(1+x)`**) to each value.
+
+
+<img width="654" alt="5  Log_Transformed Distribution of Cleaning_Liquid_Usage_liters" src="https://github.com/user-attachments/assets/e95bd482-65d2-40e1-8b93-1e273697a7d1" />
+
+* The graph displays the distribution of the log-transformed **`Cleaning_Liquid_Usage_liters`** values. The transformation successfully reduces skewness, making the data more symmetrical and closer to a normal distribution.
+
+* This adjustment improves the suitability of the data for machine learning models that assume normally distributed input features.
+
+* The peak near the center indicates the most frequent log-transformed values, while the tails on either side show lower frequencies of extreme values, effectively reducing their impact on modeling.
+
+
+### Outlier Identification
+
+**What are outliers?**
+
+Outliers are data points that significantly differ from the majority of the dataset, often lying far outside the expected range. They can distort statistical analyses and model performance if not addressed.
+
+We generate boxplots for each column in the dataset to identify potential outliers visually.
+
+<img width="655" alt="6  Boxplots with outliers" src="https://github.com/user-attachments/assets/64dacd98-a9b9-47d4-884c-69969aa3d2e3" />
+
+Several features, such as **`Flight Hours`** and **`Cleaning_Liquid_Usage_liters`**, show significant outliers. Identifying these helps decide whether to remove or handle them, depending on their impact on model performance.
+
+### Removing Outliers
+
+The function **`remove_outliers_iqr`** applies the IQR method to filter out outliers.
+
+* It calculates the first quartile (Q1), third quartile (Q3), ad the IQR (Q3 - Q1) for each column.
+
+* Using the lower and upper bounds defined as **`Q1 - 1.5 * IQR`** ad **`Q3 + 1.5 * IQR`**, it removes rows with values outside this range for each column.
+
+**`Original DataFrame shape: (235937, 14)`**
+**`Cleaned DataFrame shape: (185910, 14)`**
+
+<img width="654" alt="7  Boxplots without outliers" src="https://github.com/user-attachments/assets/4bb2bdf2-ba5f-46fc-8d17-852a689a8814" />
+
+* The new boxplots show that most extreme values have been removed, and the distributions are now more compact.
+
+* The absence of extreme values suggests the dataset is now better suited for analysis and modeling.
+
+
+### Downsampling
+
+**What is downsampling?** 
+
+Downsampling is the process of reducing the size of a dataset by randomly selecting a subset of rows while maintaining the overall structure and distribution of the data. This is typically done to make the dataset smaller, more manageable, and computationally efficient for machine learning tasks.
+
+**Why downsample the Dataset?**
+
+In the more filtered dataset, the shape indicates a very large number of rows (235k). Processing such a large dataset can be computationally expensive and time-consuming, especially for iterative tasks like hyperparameter tuning or model evaluation. Downsampling reduces the dataset size to a more manageable level, allowing quicker analysis and experimentation. Additionally, downsampling preserves the distribution of the target variable, ensuring that insights gained during analysis or modeling remain representative of the original dataset.
+
+### Distribution of the target value before sampling
+
+<img width="656" alt="8  Distribution of Cargo_Capacity_kg before downsampling" src="https://github.com/user-attachments/assets/389abf3c-45b3-48c0-b2c4-25a4054499d0" />
+
+* The distribution of **`Cargo_Capacity_kg`** appears symmetrical and bell-shaped, consistent with a normal distribution.
+
+### Distribution of the target value after sampling
+
+<img width="655" alt="9  Distribution of Cargo_Capacity_kg after downsampling" src="https://github.com/user-attachments/assets/2fdee265-fa23-4279-b8ca-0d6fe8a076e6" />
+
+* After downsampling, the shape of the distribution is the same and remains unchanged, confirming that random sampling preserved the dataset's statistical properties.
+— vetem kte shto posht dyshit
 
 
 
