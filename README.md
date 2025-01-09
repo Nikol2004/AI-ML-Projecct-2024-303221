@@ -1,4 +1,4 @@
-# AI&ML Project 2024-2025
+# AI and ML Project 2024-2025
 
 # Project 4 - AEROPOLIS
 
@@ -123,6 +123,11 @@ In a regression problem, the target variable (**`Cargo_Capacity_kg`**) is essent
 * After processing, all columns were converted to numeric types, including previously categorical columns.
 
 
+
+
+
+
+
 ## 3. Feature Selection
 
 ### Splitting Discrete and Continuous Values
@@ -161,11 +166,38 @@ We decided to use KNN imputation because it effectively estimates missing values
 
 
 
+
+
+
+
+
 ## 4. Splitting into training and test data
 
+**Purpose**
 
+The dataset is split into training and test sets using **`train_test_split`**. This ensures that the model is trained on one subset of data and evaluated on another to prevent overfitting and assess generalization.
 
+The **`X`** variables represent features, while **`y`** is the target variable.
 
+The **`test_size=0.2`** specifies that 20% of the data is reserved for testing, and **`random_state=42`** ensures reproducibility. 
+
+* Training set size: 14,872
+* Test set size: 3,719
+* Both splits maintain 13 features, confirming the intergrity of the division.
+
+### Distribution of Values in Training and Test sets
+
+**Purpose**
+
+Visualizing the distribution of features in the trianing and test sets using Kernel Density Estimation (KDE) plots ensures that both subsets are statistically similar and unbiased.
+
+<img width="580" alt="11  Distribution of values in the training and tets data comparison" src="https://github.com/user-attachments/assets/eb82aade-9d98-4473-86fc-54babad95517" />
+
+* The KDE plots indicate that the feature distributions in both sets align closely, suggesting an even split without significat sampling bias. 
+
+* This ensures that the models trained on the training data will generalize well to the test data. 
+
+* However, features like **`Vertical_Landing`** and **`Terrain_type`** show distinct peaks, reflecting categorical distributions, while others like **`Air_Temperature_Celsius`** are continuous and symmetric.
 
 
 
