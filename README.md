@@ -412,6 +412,59 @@ This indicates that the model captures the data effectively and that errors are 
 
 Overall, all three models show acceptable residual distributions, but Gradient Boosting and SVR may handle complex data patterns slightly better than Linear Regression due to heir more advanceed architectures.
 
+### Training and evaluating the models after Hyperparameter Tuning
+
+**1. Model Initialization**
+
+* Defined models include Gradient Boosting, Support Vector Regressor (SVR), and Linear Regressor.
+* Gradient Boosting and SVR models are configured with the best hyperparameters obtained during tuning.
+
+**2. Performance Metrics**
+
+* For each model, performance is evaluated on the test dataset using key metrics.
+* Each model is iteratively trained and evaluated:
+	* Predictions are made on the test dataset.
+   	* Metrics and runtime are calculated and logged.
+* Final results are stored in a dictionary for comparison across models.
+
+**3. Learning Curves for each**
+
+<img width="657" alt="24  Learning Curve with Best Parameters LR" src="https://github.com/user-attachments/assets/915db652-32a6-4048-8fcd-3eb95eb90058" />
+<img width="652" alt="23  Learning Curve with Best Parameters SVR" src="https://github.com/user-attachments/assets/2812faf9-6891-41a1-bd95-893b1e2ba7b7" />
+<img width="656" alt="22  Learning Curve with Best Parameters GB" src="https://github.com/user-attachments/assets/2f5bf035-7e67-4e1d-b6cf-cbbc9c60e154" />
+
+**`Learning Curves`**
+
+1. Gradient Boosting
+
+    * The training accuracy decreases slightly as the training size increases, suggesting the model generalizes well.
+    * The validation accuracy remains consistent with a slight improvement as more data is used, indicating low overfitting.
+
+2. SVR
+
+    * Similar to Gradient Boosting, the training accuracy decreases as the training size increases.
+    * Validation accuracy shows marginal improvement with more datam indicating stable performance and minimal overfitting.
+
+3. Linear Regression
+
+    * The training accuracy is slightly lower than that of Gradient Boosting and SVR, reflecting the simpler nature of the model.
+    * Validation accuracy remains steady and comparable to the training accuracy, indicating good generalization.
+
+
+**`Performance Metrics`**
+
+* *Gradient Boosting*: Offers strong performance with an R^2 of 0.9111 and low errors but has a slightly longer runtime compared to Linear Regression.
+
+* *SVR*: Achieves the highest R^2 and lowest error metrics but has a significantly higher runtime.
+
+* *Linear Regression*: Has a marginally lower R^2 but compensates with the fastest runtime, making it suitable for time-sensitive tasks.
+
+**Why so small differences?**
+
+The minimal differences observed in the learning curves and evaluation metrics across models can be attributed to the homogeneity of the dataset. Specifically, equally distributed categorical variables simplify paterns in the data, reducing the need for models to adapt to challenging or unique scenarios.
+
+As a result, hyperparameter tuning has little impact, as the models can already achieve optimal or near-optimal performance on the dataset.
+
 
 
 ## 6. Feature Importance
@@ -440,50 +493,7 @@ Overall, all three models show acceptable residual distributions, but Gradient B
 
 
 
-### 1) Understanding the dataset
-- 1.1)Overview of the dataset: with *'aeropolis_df.head()'* we extract the first few rows of the dataset, which helps us to better understand the structure of the data, the columns, and to have a glance at the values;
-Then, thanks to the **`shape`** attribute, we can see that the dataset is composed by 1,000,000 rows and 20 columns: this is useful to verify the size of the dataset before processing.
-Moreover, *'aeropolis_df.info()'* allows us to output the summary of a DataFrame, with information like the number of rows or columns or columns' data types, and the count of non-null values for each column.  This result highlights the fact that each column has missing data and that the data types are either **`float64`**, used for floating-point numbers in 11 columns out of 20, or **`object`**, for strings or columns containing mixed data types in the remaining 9 columns. 
-- 1.2)Checking for duplicates: The **`.nunique()`** method calculates the number of unique values in each column of the DataFrame, which helps us to understand the distribution and variability of the data in each feature. 
-The result shows us that there are some attributes that have a low number of unique values, which may indicate that they are categorical values, whilst there are other attributes that have a high number of unique values, which may indicate that they are numerical values. 
-With **'aeropolis_df.duplicated().sum()'** we ensure the dataset is free from redundancy, which could bias our analysis or training process.
-- 1.3)Checking data integrity: To check data integrity in a more detailed way we create the function **`missing_values_table`** to return the total count of missing values for each column, and their respective percentage relative to the number of rows.
-The table we compute with **'missing_values_table(aeropolis_df)'** shows that the dataset has significant missing values with circa 10% in each column. 
-	- 1.3.1)We can also see that as the number of missing values increases, the count of rows decreases significantly, which means that the major part of the dataset will require minimal imputation, while 	the other part will need to be processed or removed.
-- 1.4)Descriptive Statistics using the original data: 
-	- 1.4.1)Categorical Values: The **`select_dtypes(include=['object'])`** method filters out only the columns with data type object, which are the categorical variables.
-	The **`.describe()`** method generates summary statistics for the categorical columns, such as **`count`**, which tells the number of non-null values in each column, or **`top`**, which tells the most 	frequent category (mode).
-	**Interpretation**
-	* The results from the categorical data description show that the dataset is fairly balanced in terms of representation across different categories, such as **`Weather_Status`**, **`Package_Type`**, 	**`Market_Region`**, and others. 	
-	* For example, **`Market_Region`** has three categories, with "Local" being the most frequent at 300,377 instances. Similarly, **`Quantum_Battery`** is binary with a balanced split, showing **`True`** 	as the top value at 450,103.
 
-	* This balance suggests that the categorical variables in the dataset provide diverse representations, minimizing potential biases.
-
-	We loop through all categorical columns to then create a pie chart for each column to visualize the distribution of values, which is fairly balanced: for example, Weather_Status or Market_Region are 	almost equally divided into their 3 categories, whilst Package_Type is evenly distributed across all its 6 categories. 
-(Insert plot) (**)
-	Then we loop through the categorical variables to get more precise percentages for each category and we see that the categories differ by at most 0.1% in their distribution (which means that the latter is highly balanced).
-
-	For example, the **`Vertical_Landing`** feature shows almost equal proportions for Unknown, Unsupported, and Supported. 
-	This balance suggests that no single category dominates, reducing the risk of model bias towards a particular class and ensuring fair representation during training.
-
-	- 1.4.2)Numerical Values: In this case, we proceed as we did for the categorical columns, using the select_dtypes method the DataFrame to include only numerical columns, the describe() method to 		calculate summary statistics for numerical columns, including **`Mean`**: , which gets the average value, or **`25%, 50%, 75%`**: which give the percentiles that help us better understand the data 		distribution.
-	**Interpretation**
-	* The statistical summary provides insights into the numerical variables in the dataset. For the target variable **`Cargo_Capacity_kg`**, the mean is approximately 4.65 kg, with a standard deviation 	of 1.69 kg, indicating moderate variability. 
-
-	* Some negative values suggest potential anomalies or preprocessing errors.
-	The **`hist()`** function generates histograms for all numerical columns to visualize their distribution. (Insert plot)(**)
-	**Interpretation**
-
-	* **`Cargo_Capacity_kg`** and **`Water_Usage_liters`**: Have bell-shaped distributions with potential outliers at the edges.
-	* **`Cleaning_Liquid_Usage_liters`**: Highly skewed to the left, indicating most values are concentrated near zero.
-	* **`Autopilot_Qualty_Index`**, **`Vertical_Max_Speed`**, and **`Wind_Speed_kmph`**: Show relatively uniform distributions. 
-
-		-1.4.2.1) Checking for low variability columns: We check for numerical columns with a standard deviation (variability) of less than 0.01, and see that all numerical columns exhibit enough 			variation to potentially contribute to the analysis.
-
-- 1.5) Handling missing values of the dependent variable: We remove rows missing the target value (of the (**`Cargo_Capacity_kg`**) variable), using the **`dropna()`** method, because we are working on a regression problem, and therefore:
- 	* The model cannot learn without target values, as it needs them to calculate errors and adjust weights.
-	* Missing target values make it impossible to compare predictions and measure model performance.
-	* Retaining these rows adds noise and unnecessary complexity without contributing to the model.
 
 ### 2) Cleaning the dataset
 
